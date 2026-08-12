@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/ems_logo.svg" />
+    <title>Event Management System</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <script>
+      // Apply dark mode immediately before paint to prevent light-mode flash
+      (function() {
+        var isDark = localStorage.getItem('event-management-theme') === 'dark';
+        if (isDark) {
+          document.documentElement.classList.add('dark');
+          document.documentElement.style.backgroundColor = '#14201d';
+          document.documentElement.style.color = '#edf2ef';
+        } else {
+          document.documentElement.style.backgroundColor = '#f6f4ee';
+          document.documentElement.style.color = '#22282a';
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

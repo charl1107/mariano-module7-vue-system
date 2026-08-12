@@ -1,0 +1,103 @@
+@import "tailwindcss";
+
+:root {
+  --color-bg: #f6f4ee;
+  --color-surface: #ffffff;
+  --color-surface-muted: #eeeadd;
+  --color-primary: #1b4b43;
+  --color-primary-dark: #123330;
+  --color-accent: #e8a33d;
+  --color-text: #22282a;
+  --color-text-muted: #5c6663;
+  --color-border: #ddd6c4;
+  --color-danger: #b6412f;
+  --color-success: #2f7a4f;
+
+  --font-display: "Fraunces", ui-serif, serif;
+  --font-body: "Inter", ui-sans-serif, system-ui, sans-serif;
+}
+
+/* Dark mode: same variable names, dark-safe values. Toggled via a .dark
+   class on <html> — components never need to know which mode is active,
+   they just read the CSS variables. */
+:root.dark {
+  --color-bg: #14201d;
+  --color-surface: #1c2a26;
+  --color-surface-muted: #24342f;
+  --color-primary: #5fb39c;
+  --color-primary-dark: #bfe6d9;
+  --color-accent: #f0b65a;
+  --color-text: #edf2ef;
+  --color-text-muted: #9fada7;
+  --color-border: #34443e;
+  --color-danger: #e2685a;
+  --color-success: #6ecb95;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  background-image:
+    radial-gradient(circle at 1px 1px, var(--color-border) 1px, transparent 0);
+  background-size: 22px 22px;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+/* Force form controls and table cells to use theme colors consistently */
+input,
+select,
+textarea {
+  color: var(--color-text);
+}
+
+table {
+  color: var(--color-text);
+}
+
+th, td {
+  color: inherit;
+}
+
+option {
+  color: var(--color-text);
+  background-color: var(--color-surface);
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+/* Ticket-stub perforation used on event cards */
+.ticket-perforation {
+  background-image: radial-gradient(
+    circle at center,
+    var(--color-bg) 0,
+    var(--color-bg) 3px,
+    transparent 3px
+  );
+  background-size: 12px 100%;
+  background-repeat: repeat-x;
+}
+
+/* Modal overlay transitions */
+.modal-enter-active,
+.modal-leave-active {
+  transition: opacity 0.2s ease;
+}
+.modal-enter-active > div:last-child,
+.modal-leave-active > div:last-child {
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+.modal-enter-from,
+.modal-leave-to {
+  opacity: 0;
+}
+.modal-enter-from > div:last-child {
+  transform: scale(0.95);
+  opacity: 0;
+}
+.modal-leave-to > div:last-child {
+  transform: scale(0.95);
+  opacity: 0;
+}
