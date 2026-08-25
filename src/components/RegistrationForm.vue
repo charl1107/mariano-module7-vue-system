@@ -1,5 +1,6 @@
 <script setup>
 import { reactive, watch } from 'vue'
+import { validateRegistration } from '../utils/registrationValidation'
 
 const props = defineProps({
   events: {
@@ -43,8 +44,9 @@ function resetForm() {
 }
 
 function handleSubmit() {
-  if (!form.participantName.trim() || !form.email.trim() || !form.eventId) {
-    emit('validation-error', 'Please complete all required fields before submitting.')
+  const { valid, errors } = validateRegistration(form)
+  if (!valid) {
+    emit('validation-error', errors[0] || 'Please complete all required fields before submitting.')
     return
   }
 
@@ -74,7 +76,7 @@ function handleCancel() {
       {{ editingRegistration ? 'Edit Registration' : 'Register Participant' }}
     </h2>
 
-    <form v-if="events.length > 0" class="grid grid-cols-1 sm:grid-cols-2 gap-4" @submit.prevent="handleSubmit">
+    <form novalidate v-if="events.length > 0" class="grid grid-cols-1 sm:grid-cols-2 gap-4" @submit.prevent="handleSubmit">
       <div>
         <label for="participantName" class="block text-sm font-medium mb-1" style="color: var(--color-text);">
           Participant Name

@@ -1,5 +1,6 @@
 <script setup>
 import { reactive, watch } from 'vue'
+import { validateEvent } from '../utils/eventValidation'
 
 const props = defineProps({
   editingEvent: {
@@ -45,12 +46,8 @@ function resetForm() {
 }
 
 function handleSubmit() {
-  if (
-    !form.title.trim() ||
-    !form.description.trim() ||
-    !form.eventDate ||
-    !form.location.trim()
-  ) {
+  const { valid } = validateEvent(form)
+  if (!valid) {
     emit('validation-error', 'Please complete all required fields before submitting.')
     return
   }

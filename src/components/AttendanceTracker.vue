@@ -1,5 +1,6 @@
 <script setup>
 import { ref, computed } from 'vue'
+import { getAttendanceSummary } from '../utils/attendanceSummary'
 
 const props = defineProps({
   events: {
@@ -20,13 +21,7 @@ const eventRegistrations = computed(() =>
   props.registrations.filter((r) => r.eventId === selectedEventId.value)
 )
 
-const summary = computed(() => {
-  const list = eventRegistrations.value
-  const present = list.filter((r) => r.attendanceStatus === 'Present').length
-  const absent = list.filter((r) => r.attendanceStatus === 'Absent').length
-  const notMarked = list.length - present - absent
-  return { total: list.length, present, absent, notMarked }
-})
+const summary = computed(() => getAttendanceSummary(eventRegistrations.value))
 
 function markAttendance(registrationId, status) {
   emit('mark', registrationId, status)
