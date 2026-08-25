@@ -256,3 +256,36 @@ The architectural constraints noted in Module 6 (e.g., no backend database) are 
 10. **Calendar Integration** — Sync events with Google Calendar or Outlook for better scheduling visibility.
 
 ---
+
+## 🧪 Module 8 — Software Testing
+
+### Overview
+In Module 8, automated unit testing with **Vitest**, component test utility modularization, defect reporting/fixing, and GitHub Actions CI test integration were configured for this Vue.js application.
+
+### Test Commands
+```bash
+# Run Vitest unit tests in watch mode
+npm run test
+
+# Run Vitest unit tests once (CI mode)
+npm run test:run
+
+# Run full production build
+npm run build
+```
+
+### Summary of Automated Unit Tests
+- **`src/utils/attendanceSummary.test.js`**: Verifies attendance calculation for present, absent, not-marked, and empty arrays.
+- **`src/utils/eventValidation.test.js`**: Verifies valid event objects and rejects whitespace-only titles.
+- **`src/utils/filterByKeyword.test.js`**: Verifies case-insensitive search filtering and empty keyword behavior.
+- **`src/utils/registrationValidation.test.js`**: Verifies complete registrations, missing event handling, and email format validation.
+
+**Total Tests:** 9 passing across 4 test files.
+
+### 🐛 Identified Defect (BUG-01) & Correction
+- **Defect Summary:** The registration form previously accepted malformed email addresses (e.g., `not-an-email`).
+- **Root Cause:** `validateRegistration()` only checked for non-empty strings (`!form.email.trim()`) without email format validation.
+- **Correction:** Implemented regex validation (`/^[^\s@]+@[^\s@]+\.[^\s@]+$/`) in `src/utils/registrationValidation.js` and wired it into `RegistrationForm.vue`.
+- **Retest & Regression:** Unit test `rejects a registration with an invalid email format` passes successfully, and all 9 unit tests pass without regressions.
+
+---

@@ -1,4 +1,4 @@
-name: Vue Build Check
+name: Vue Test and Build Check
 
 on:
   push:
@@ -19,5 +19,7 @@ jobs:
           cache: npm
       - name: Install dependencies
         run: npm ci
+      - name: Run automated tests
+        run: npm run test:run
       - name: Build Vue application
         run: npm run build
